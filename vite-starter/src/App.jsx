@@ -1,9 +1,19 @@
+import { useState } from "react";
 import "./App.css";
 
 function App() {
+  const [buttonClass, setButtonClass] = useState("red");
+  const toggleButtonClass = () => {
+    setButtonClass((prev) => (prev === "red" ? "blue" : "red"));
+  };
   return (
     <div>
-      <button className="red">Change to blue</button>
+      <button
+        onClick={toggleButtonClass}
+        className={buttonClass}
+      >
+        Change to {buttonClass === "red" ? "blue" : "red"}
+      </button>
     </div>
   );
 }
