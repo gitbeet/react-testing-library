@@ -1,11 +1,16 @@
 import { useState } from "react";
 import "./App.css";
+import { kebabCaseToTitleCase } from "./helpers";
 
 function App() {
-  const [buttonClass, setButtonClass] = useState("red");
+  const [buttonClass, setButtonClass] = useState("medium-violet-red");
   const [checked, setChecked] = useState(false);
+
+  const nextColor =
+    buttonClass === "medium-violet-red" ? "midnight-blue" : "medium-violet-red";
+
   const toggleButtonClass = () => {
-    setButtonClass((prev) => (prev === "red" ? "blue" : "red"));
+    setButtonClass(nextColor);
   };
   const toggleCheckbox = () => setChecked((prev) => !prev);
 
@@ -16,7 +21,7 @@ function App() {
         onClick={toggleButtonClass}
         className={checked ? "gray" : buttonClass}
       >
-        Change to {buttonClass === "red" ? "blue" : "red"}
+        Change to {kebabCaseToTitleCase(nextColor)}
       </button>
       <label htmlFor="checkbox">Check to disable button</label>
       <input
