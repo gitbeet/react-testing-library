@@ -1,5 +1,4 @@
 import { screen, render, fireEvent } from "@testing-library/react";
-// import App from "./App";
 import SummaryForm from "./SummaryForm";
 
 test("checkbox flow", () => {
@@ -20,4 +19,8 @@ test("checkbox flow", () => {
   fireEvent.click(checkboxElement);
   expect(checkboxElement).not.toBeChecked();
   expect(buttonElement).toBeDisabled();
+});
+
+test("hovering on terms and condition flow", async () => {
+  // const user =
 });

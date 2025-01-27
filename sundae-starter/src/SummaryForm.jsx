@@ -13,7 +13,7 @@ const SummaryForm = () => {
 
   return (
     <Form>
-      <Form.Group>
+      <Form.Group controlId="terms-and-conditions">
         <Form.Check
           onChange={toggleChecked}
           checked={checked}
