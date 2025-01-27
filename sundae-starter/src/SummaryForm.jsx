@@ -12,7 +12,7 @@ const SummaryForm = () => {
   );
 
   return (
-    <div>
+    <Form>
       <Form.Group>
         <Form.Check
           onChange={toggleChecked}
@@ -28,7 +28,7 @@ const SummaryForm = () => {
       >
         Confirm order
       </Button>
-    </div>
+    </Form>
   );
 };
 
