@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import ScoopOption from "./ScoopOption";
+import ToppingOption from "./ToppingOption";
 
 const Options = ({ optionType }) => {
   const [items, setItems] = useState();
@@ -12,7 +13,12 @@ const Options = ({ optionType }) => {
       .catch((e) => console.log(e));
   }, [optionType]);
 
-  const ItemComponent = optionType === "scoops" ? ScoopOption : null;
+  const ItemComponent =
+    optionType === "scoops"
+      ? ScoopOption
+      : optionType === "toppings"
+      ? ToppingOption
+      : null;
 
   return (
     <div style={{ display: "flex", flexWrap: "wrap", gap: "2rem" }}>
