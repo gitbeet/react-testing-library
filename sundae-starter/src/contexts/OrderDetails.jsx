@@ -22,7 +22,11 @@ export function OrderDetailsProvider(props) {
 
   const updateItemCount = (itemName, newItemCount, optionType) => {
     const newOptionCounts = { ...optionCounts };
-    newOptionCounts[optionType][itemName] = newItemCount;
+    if (newItemCount === 0) {
+      delete newOptionCounts[optionType][itemName];
+    } else {
+      newOptionCounts[optionType][itemName] = newItemCount;
+    }
     setOptionCounts(newOptionCounts);
   };
 
