@@ -1,4 +1,12 @@
+import { useOrderDetails } from "../../contexts/OrderDetails";
+
 const ToppingOption = ({ name, imagePath }) => {
+  const { optionCounts, updateItemCount } = useOrderDetails();
+  const handleChange = (e) => {
+    updateItemCount(name, e.target.checked ? 1 : 0, "toppings");
+  };
+
+  const isChecked = optionCounts["toppings"][name];
   return (
     <div
       style={{
@@ -18,7 +26,20 @@ const ToppingOption = ({ name, imagePath }) => {
         src={`http://localhost:3030/${imagePath}`}
         alt={`${name} topping`}
       />
-      <span style={{ fontSize: "1.2rem" }}>{name}</span>
+      <div>
+        <input
+          type="checkbox"
+          id={name}
+          onChange={handleChange}
+          checked={isChecked}
+        />
+        <label
+          htmlFor={name}
+          style={{ fontSize: "1.2rem" }}
+        >
+          {name}
+        </label>
+      </div>
     </div>
   );
 };

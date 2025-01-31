@@ -22,6 +22,7 @@ export function OrderDetailsProvider(props) {
 
   const updateItemCount = (itemName, newItemCount, optionType) => {
     const newOptionCounts = { ...optionCounts };
+
     if (newItemCount === 0) {
       delete newOptionCounts[optionType][itemName];
     } else {
@@ -44,7 +45,12 @@ export function OrderDetailsProvider(props) {
     toppings: calculateTotal("toppings"),
   };
 
-  const value = { optionCounts, updateItemCount, resetOrder, totals };
+  const value = {
+    optionCounts,
+    updateItemCount,
+    resetOrder,
+    totals,
+  };
 
   return (
     <OrderDetails.Provider

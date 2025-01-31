@@ -5,7 +5,7 @@ import { http, HttpResponse } from "msw";
 import { server } from "../../../mocks/server";
 import { BASE_URL } from "../../../mocks/handlers";
 
-test.only("handles errors for scoops and toppings routes", async () => {
+test("handles errors for scoops and toppings routes", async () => {
   // reset the handlers so they return an error in order to test
   server.resetHandlers(
     http.get(`${BASE_URL}/scoops`, () => HttpResponse(null, { status: 500 })),
@@ -26,6 +26,3 @@ test.only("handles errors for scoops and toppings routes", async () => {
   // expect 2 alerts (scoops and toppings)
   expect(alerts).toHaveLength(2);
 });
-
-test("my test 2", () => {});
-test("my test 3", () => {});
