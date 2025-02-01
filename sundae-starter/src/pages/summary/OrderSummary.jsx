@@ -2,7 +2,7 @@ import { useOrderDetails } from "../../contexts/OrderDetails";
 import { formatCurrency } from "../../utilities";
 import SummaryForm from "./SummaryForm";
 
-const OrderSummary = () => {
+const OrderSummary = ({ setOrderPhase }) => {
   const { totals, optionCounts } = useOrderDetails();
 
   const scoopsArray = Object.entries(optionCounts.scoops);
@@ -13,15 +13,21 @@ const OrderSummary = () => {
   ));
   const toppingsArray = Object.keys(optionCounts.toppings);
   const toppingsList = toppingsArray.map((t) => <li key={t}>{t}</li>);
+  const formattedScoops = formatCurrency(totals["scoops"]);
+  const formattedToppins = formatCurrency(totals["toppings"]);
 
   return (
     <div>
       <h2>Order summary</h2>
-      <h2>Scoops: {formatCurrency(totals["scoops"])}</h2>
+      <h2>Scoops: {formattedScoops}</h2>
       <ul>{scoopsList}</ul>
-      <h2>Toppings: {formatCurrency(totals["toppings"])}</h2>
-      <ul>{toppingsList}</ul>
-      <SummaryForm />
+      {toppingsArray.length && (
+        <>
+          <h2>Toppings: {formattedToppins}</h2>
+          <ul>{toppingsList}</ul>
+        </>
+      )}
+      <SummaryForm setOrderPhase={setOrderPhase} />
     </div>
   );
 };

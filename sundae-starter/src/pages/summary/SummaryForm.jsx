@@ -2,7 +2,7 @@ import { useState } from "react";
 import { OverlayTrigger, Popover } from "react-bootstrap";
 import { Button, Form } from "react-bootstrap";
 
-const SummaryForm = () => {
+const SummaryForm = ({ setOrderPhase }) => {
   const [checked, setChecked] = useState(false);
   const toggleChecked = () => setChecked((prev) => !prev);
 
@@ -38,6 +38,10 @@ const SummaryForm = () => {
         variant="primary"
         type="submit"
         disabled={!checked}
+        onClick={(e) => {
+          e.preventDefault();
+          setOrderPhase("complete");
+        }}
       >
         Confirm order
       </Button>

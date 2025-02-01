@@ -1,4 +1,4 @@
-import { http, HttpResponse } from "msw";
+import { delay, http, HttpResponse } from "msw";
 
 export const BASE_URL = "http://localhost:3030";
 
@@ -16,4 +16,11 @@ export const handlers = [
       { name: "Hot fudge", imagePath: "/images/hot-fudge.png" },
     ])
   ),
+  http.post(`${BASE_URL}/order`, async () => {
+    await delay(400);
+    return HttpResponse.json(
+      { orderNumber: Math.floor(Math.random() * 1000000000) },
+      { status: 201 }
+    );
+  }),
 ];

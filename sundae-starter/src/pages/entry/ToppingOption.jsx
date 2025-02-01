@@ -5,8 +5,8 @@ const ToppingOption = ({ name, imagePath }) => {
   const handleChange = (e) => {
     updateItemCount(name, e.target.checked ? 1 : 0, "toppings");
   };
+  const isChecked = !!optionCounts["toppings"][name];
 
-  const isChecked = optionCounts["toppings"][name];
   return (
     <div
       style={{

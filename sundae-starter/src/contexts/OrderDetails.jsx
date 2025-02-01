@@ -1,11 +1,6 @@
 import { createContext, useContext, useState } from "react";
 import { PRICE_PER_ITEM } from "../constants";
 
-const emptyOptions = {
-  scoops: {},
-  toppings: {},
-};
-
 const OrderDetails = createContext();
 
 export const useOrderDetails = () => {
@@ -18,7 +13,10 @@ export const useOrderDetails = () => {
 };
 
 export function OrderDetailsProvider(props) {
-  const [optionCounts, setOptionCounts] = useState(emptyOptions);
+  const [optionCounts, setOptionCounts] = useState({
+    scoops: {},
+    toppings: {},
+  });
 
   const updateItemCount = (itemName, newItemCount, optionType) => {
     const newOptionCounts = { ...optionCounts };
@@ -31,7 +29,9 @@ export function OrderDetailsProvider(props) {
     setOptionCounts(newOptionCounts);
   };
 
-  const resetOrder = () => setOptionCounts(emptyOptions);
+  const resetOrder = () => {
+    setOptionCounts({ scoops: {}, toppings: {} });
+  };
 
   const calculateTotal = (optionType) => {
     const countsArray = Object.values(optionCounts[optionType]);

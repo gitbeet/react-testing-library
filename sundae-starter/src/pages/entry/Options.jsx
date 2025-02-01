@@ -27,6 +27,8 @@ const Options = ({ optionType }) => {
 
   const title = optionType[0].toUpperCase() + optionType.slice(1).toLowerCase();
 
+  const formattedTotal = formatCurrency(totals[optionType]);
+
   if (error) return <AlertBanner />;
 
   return (
@@ -34,7 +36,7 @@ const Options = ({ optionType }) => {
       <h2>{title}</h2>
       <p>{formatCurrency(PRICE_PER_ITEM[optionType])} each</p>
       <p>
-        {title} total: {formatCurrency(totals[optionType])}
+        {title} total: {formattedTotal}
       </p>
       <div style={{ display: "flex", flexWrap: "wrap", gap: "2rem" }}>
         {items?.map((item, i) => (
