@@ -7,7 +7,7 @@ function App() {
     <OrderDetailsProvider>
       <h1>Sundaes on Demand</h1>
       <OrderEntry />
-      <OrderSummary />
+      {/* <OrderSummary /> */}
     </OrderDetailsProvider>
   );
 }

@@ -1,6 +1,7 @@
 import { screen, render } from "../../../test-utils/testing-library-utils";
 import userEvent from "@testing-library/user-event";
 import Options from "../Options";
+import OrderEntry from "../OrderEntry";
 
 test("update scoop subtotal when scoops change", async () => {
   render(<Options optionType="scoops" />);
@@ -25,6 +26,9 @@ test("update scoop subtotal when scoops change", async () => {
   await user.clear(chocolateInput);
   await user.type(chocolateInput, "2");
   expect(scoopsSubtotal).toHaveTextContent("6.00");
+
+  await user.type(chocolateInput, "0");
+  await user.type(vanillaInput, "0");
 });
 
 test("update topping subtotal when toppings change", async () => {
@@ -53,4 +57,48 @@ test("update topping subtotal when toppings change", async () => {
   //remove Cherries topping and check if subtotal s 0.00
   await user.click(cherriesCheckbox);
   expect(toppingsSubtotal).toHaveTextContent("0.00");
+});
+
+describe("grand total", () => {
+  test("grand total starts at 0.00", () => {
+    render(<OrderEntry />);
+    const grandTotalElement = screen.getByText(/grand total/i);
+    expect(grandTotalElement).toHaveTextContent("0.00");
+  });
+  test("grand total updates correctly if scoop is added first", async () => {
+    render(<OrderEntry />);
+    const user = userEvent.setup();
+    const grandTotalElement = screen.getByText(/grand total/i);
+    const vanillaScoopInput = await screen.findByRole("spinbutton", {
+      name: "Vanilla",
+    });
+    await user.clear(vanillaScoopInput);
+    await user.type(vanillaScoopInput, "1");
+    expect(grandTotalElement).toHaveTextContent("2.00");
+    await user.type(vanillaScoopInput, "0");
+  });
+  test("grand total updates correctly if topping is added first", async () => {
+    render(<OrderEntry />);
+    const user = userEvent.setup();
+    const grandTotalElement = screen.getByText(/grand total/i);
+    const cherriesToppingCheckbox = await screen.findByRole("checkbox", {
+      name: "Cherries",
+    });
+    await user.click(cherriesToppingCheckbox);
+    expect(grandTotalElement).toHaveTextContent("1.50");
+    await user.click(cherriesToppingCheckbox);
+  });
+  test("grand total updats properly if item is removed", async () => {
+    render(<OrderEntry />);
+    const user = userEvent.setup();
+    const grandTotalElement = screen.getByText(/grand total/i);
+    const vanillaScoopInput = await screen.findByRole("spinbutton", {
+      name: "Vanilla",
+    });
+    await user.clear(vanillaScoopInput);
+    await user.type(vanillaScoopInput, "1");
+    expect(grandTotalElement).toHaveTextContent("2.00");
+    await user.type(vanillaScoopInput, "0");
+    expect(grandTotalElement).toHaveTextContent("0.00");
+  });
 });
